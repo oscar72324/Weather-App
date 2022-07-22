@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <!-- <script src="script.js" defer></script>
+    <script src="app.js" defer></script> -->
+    
+
+</head>
+<body>
+    
+<div class="cards">
+    <div id="angeles">
+        <div id="description"></div>
+        <h1 id="temp"></h1>
+        <div id="location"></div>
+    </div>
+
+    <div id="york">
+        <div id="description1"></div>
+        <h1 id="temp1"></h1>
+        <div id="location1"></div>
+    </div>
+
+    <div id="miami">
+        <div id="description2"></div>
+        <h1 id="temp2"></h1>
+        <div id="location2"></div>
+    </div>
+
+</div>
+
+    <script>
+        //la
+    function weather(cityID){
+        console.log(cityID)
+        var key = '{f3fea66a039d88275b050d054a82d627}';
+        fetch('https://api.openweathermap.org/data/2.5/weather?id=5368361&appid=f3fea66a039d88275b050d054a82d627')
+        .then(function (resp){
+            return resp.json();
+        }).then(function (data){
+            drawWeather(data);
+        }).catch(function (){
+            //catch errors
+        })
+    }
+
+    
+
+    
+    function drawWeather(d) {
+        var fahrenheit = Math.round(((parseFloat(d.main.temp) - 273.15)*1.8)+32);
+    
+        document.getElementById('description').innerHTML = d.weather[0].description;
+        document.getElementById('temp').innerHTML = fahrenheit + '&deg;';
+        document.getElementById('location').innerHTML = d.name;
+    }
+
+    //miami
+    function weather2(miamiID){
+        var key = '{f3fea66a039d88275b050d054a82d627}';
+        fetch('https://api.openweathermap.org/data/2.5/weather?id=4164138&appid=f3fea66a039d88275b050d054a82d627')
+        .then(function (resp){
+            return resp.json();
+        }).then(function (data){
+            drawWeather2(data);
+        }).catch(function (){
+            //catch errors
+        })
+    }
+
+    
+
+    
+    function drawWeather2(t) {
+        var fahrenheit = Math.round(((parseFloat(t.main.temp) - 273.15)*1.8)+32);
+    
+        document.getElementById('description2').innerHTML = t.weather[0].description;
+        document.getElementById('temp2').innerHTML = fahrenheit + '&deg;';
+        document.getElementById('location2').innerHTML = t.name;
+    }
+
+    //ny
+    function weather1(locationID){
+    console.log(locationID);
+    var key = '{f3fea66a039d88275b050d054a82d627}';
+    fetch('https://api.openweathermap.org/data/2.5/weather?id=5128581&appid=f3fea66a039d88275b050d054a82d627')
+    .then(function (resp){
+        return resp.json();
+    }).then(function (data){
+        drawWeather1(data);
+    }).catch(function (){
+        //catch errors
+    })
+}
+
+window.onload = (function (){
+    weather1(5128581)
+    weather(5368361)
+    weather2(4164138)
+})
+
+function drawWeather1(x) {
+    var fah = Math.round(((parseFloat(x.main.temp) - 273.15)*1.8)+32);
+
+    document.getElementById('description1').innerHTML = x.weather[0].description;
+    document.getElementById('temp1').innerHTML = fah + '&deg;';
+    document.getElementById('location1').innerHTML = x.name;
+}
+    </script>
+
+</body>
+</html>
